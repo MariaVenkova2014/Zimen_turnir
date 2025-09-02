@@ -1,0 +1,80 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+    long long A, B, C;
+    cin >> A >> B;
+    cin >> C;
+
+    long long charges = 0, keys = 0;
+
+    // обща дължина на годината
+    long long yearLen = 10 * A + B;
+
+    // броят награди в една пълна година
+    long long fullYearCharges = 0, fullYearKeys = 0;
+    for (int m = 1; m <= 10; m++) {
+        long long need = (A + 1) / 2; // половината (ceil)
+        if (A >= need) fullYearCharges++;
+    }
+    {
+        long long need = (B + 1) / 2;
+        if (B >= need) fullYearKeys++;
+    }
+
+    // --- първа година (започва от месец 4)
+    int month = 4;
+    long long daysLeft = C;
+    while (daysLeft > 0 && month <= 11) {
+        long long len = (month <= 10 ? A : B);
+        long long need = (len + 1) / 2;
+        if (month == 4) {
+            // каца на 01.04 -> винаги взема награда
+            charges++;
+        } else {
+            if (daysLeft >= len) {
+                // цял месец -> винаги достатъчно
+                if (month <= 10) charges++;
+                else keys++;
+            } else {
+                // непълен месец
+                if (daysLeft >= need) {
+                    if (month <= 10) charges++;
+                    else keys++;
+                }
+            }
+        }
+        daysLeft -= len;
+        month++;
+    }
+
+    // вече изхарчихме част от C, коригираме
+    long long used = C - daysLeft;
+
+    // --- пълни години след първата
+    long long remaining = C - used;
+    long long fullYears = remaining / yearLen;
+    charges += fullYears * fullYearCharges;
+    keys += fullYears * fullYearKeys;
+
+    // --- последна недовършена година
+    daysLeft = remaining % yearLen;
+    month = 1;
+    while (daysLeft > 0 && month <= 11) {
+        long long len = (month <= 10 ? A : B);
+        long long need = (len + 1) / 2;
+        if (daysLeft >= len) {
+            if (month <= 10) charges++;
+            else keys++;
+        } else {
+            if (daysLeft >= need) {
+                if (month <= 10) charges++;
+                else keys++;
+            }
+        }
+        daysLeft -= len;
+        month++;
+    }
+
+    cout << charges << " " << keys << endl;
+}
