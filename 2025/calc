@@ -1,0 +1,21 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+	int n;
+	cin >> n;
+	int result;
+	cin >> result; // първото число
+	for (int i = 1; i < n; i++) {
+		char op;
+		int num;
+		cin >> op >> num;
+		if (op == 'x') {
+			result *= num;
+		} else if (op == '+') {
+			result += num;
+		}
+	}
+	cout << result << endl;
+	return 0;
+}
