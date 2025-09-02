@@ -1,0 +1,26 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+	int t, a, b;
+	cin >> t >> a;
+	int inCount = 0;
+	for (int i = 0; i < a; i++) {
+		int inTime;
+		cin >> inTime;
+		if (inTime < t) {
+			inCount++;
+		}
+	}
+	cin >> b;
+	int outCount = 0;
+	for (int i = 0; i < b; i++) {
+		int outTime;
+		cin >> outTime;
+		if (outTime < t) {
+			outCount++;
+		}
+	}
+	cout << inCount - outCount << endl;
+	return 0;
+}
