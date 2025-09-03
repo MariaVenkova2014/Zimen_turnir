@@ -1,0 +1,25 @@
+#include <iostream>
+#include <set>
+using namespace std;
+
+int main() {
+    for (int t = 0; t < 3; t++) {  // тройки
+        int A, B, C;
+        cin >> A >> B >> C;
+
+        set<int> sums;
+        sums.insert(A);
+        sums.insert(B);
+        sums.insert(C);
+        sums.insert(A + B);
+        sums.insert(A + C);
+        sums.insert(B + C);
+        sums.insert(A + B + C);
+
+        int ans = 1;
+        while (sums.count(ans)) ans++;  // търсим най-малкото число, което не е в множеството
+
+        cout << ans << endl;
+    }
+    return 0;
+}
