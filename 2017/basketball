@@ -1,0 +1,23 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+    long long n, p, k;
+    cin >> n >> p >> k;
+
+    // How many times child 1 is counted
+    long long count = (p - 1) / n + 1;
+
+    // Check if child 1 is picked for basketball
+    long long first_pick = (n - (k % n)) % n;
+    if (first_pick == 0) first_pick = n;
+
+    long long steps = (p - 1) * k + 1;
+    if (steps % n == 0) {
+        cout << count << "\nBASKETBALL\n";
+    } else {
+        cout << count << "\nVOLLEYBALL\n";
+    }
+
+    return 0;
+}
