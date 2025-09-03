@@ -1,0 +1,19 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+    int N, K;
+    cin >> N >> K;
+
+    int current = 1; // initially 1 computer has the program
+    int hours = 0;
+
+    while (current < N) {
+        int copies = min(current, K); // each computer can copy once, limited by K cables
+        current += copies;
+        hours++;
+    }
+
+    cout << hours << endl;
+    return 0;
+}
