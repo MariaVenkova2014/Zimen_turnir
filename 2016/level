@@ -1,0 +1,30 @@
+#include <iostream>
+#include <limits>
+using namespace std;
+
+int main() {
+    int n;
+    cin >> n;
+    
+    int w, l;
+    int maxWeight = numeric_limits<int>::min();
+    int minThrow = numeric_limits<int>::max();
+    
+    for (int i = 0; i < n; i++) {
+        cin >> w >> l;
+        if (w > maxWeight) maxWeight = w;
+        if (l < minThrow) minThrow = l;
+    }
+    
+    int m, t, r;
+    cin >> m;
+    int success = 0;
+    
+    for (int i = 0; i < m; i++) {
+        cin >> t >> r;
+        if (maxWeight <= t && minThrow >= r) success++;
+    }
+    
+    cout << success << endl;
+    return 0;
+}
