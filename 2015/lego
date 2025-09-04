@@ -1,0 +1,39 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+    long long a, b, p, q, s;
+    cin >> a >> b >> p >> q >> s;
+
+    long long minF = -1, maxF = -1;
+    bool possible = false;
+
+    // Пробваме всички възможни редувания: квадрат-права или права-квадрат
+    for (int first = 0; first <= 1; first++) {
+        long long len = 0, count = 0;
+        while (len < a) {
+            if ((len % 2 == 0 && first == 0) || (len % 2 == 1 && first == 1)) {
+                len += s;
+            } else {
+                len += p;
+            }
+            count++;
+            if (len > a) break;
+        }
+        if (len == a) {
+            possible = true;
+            long long height = ((first == 0) ? s : q);
+            if (b % height == 0) {
+                long long rows = b / height;
+                long long total = count * rows;
+                if (minF == -1 || total < minF) minF = total;
+                if (maxF == -1 || total > maxF) maxF = total;
+            }
+        }
+    }
+
+    if (!possible || minF == -1) cout << "NO\n";
+    else cout << minF << " " << maxF << "\n";
+
+    return 0;
+}
