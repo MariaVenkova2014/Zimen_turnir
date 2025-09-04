@@ -1,0 +1,25 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+    int n, m;
+    cin >> n >> m;
+
+    int count = 0;
+    long long sum = 0;
+
+    for(int first = 100; first <= 999; first++) {
+        for(int second = 100; second <= 999; second++) {
+            long long num = first * 1000LL + second;
+            if(num < n || num > m) continue;
+            int s = first + second;
+            if(num % s == 0) {
+                count++;
+                sum += num;
+            }
+        }
+    }
+
+    cout << count << " " << sum << endl;
+    return 0;
+}
