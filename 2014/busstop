@@ -1,0 +1,50 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+    int n;
+    cin >> n;
+    int a[100]; // n-1 елемента
+    for(int i = 0; i < n-1; i++) {
+        cin >> a[i];
+    }
+
+    // Намираме най-дългата растяща последователност
+    int maxLen = 1, curLen = 1;
+    int startIndex = 0, maxStart = 0;
+    for(int i = 1; i < n-1; i++) {
+        if(a[i] > a[i-1]) {
+            curLen++;
+        } else {
+            curLen = 1;
+            startIndex = i;
+        }
+        if(curLen > maxLen) {
+            maxLen = curLen;
+            maxStart = startIndex;
+        }
+    }
+
+    // Преброяваме елементите
+    cout << maxLen << endl;
+
+    // Изчисляваме сумата на най-дългата растяща последователност
+    long long sum = 0;
+    for(int i = maxStart; i < maxStart + maxLen; i++) {
+        sum += a[i];
+    }
+
+    // Намираме най-големия делител на сумата, различен от самата сума
+    long long maxDiv = 1;
+    for(long long d = 1; d * d <= sum; d++) {
+        if(sum % d == 0) {
+            if(d != sum) maxDiv = max(maxDiv, d);
+            long long other = sum / d;
+            if(other != sum) maxDiv = max(maxDiv, other);
+        }
+    }
+
+    cout << maxDiv << endl;
+
+    return 0;
+}
