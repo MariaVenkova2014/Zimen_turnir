@@ -1,0 +1,61 @@
+#include <iostream>
+#include <cctype>
+using namespace std;
+
+int main() {
+    string s;
+    cin >> s;
+
+    // Извличаме началното и крайното време
+    int h = (s[0]-'0')*10 + (s[1]-'0');
+    int m = (s[2]-'0')*10 + (s[3]-'0');
+    int h1 = (s[4]-'0')*10 + (s[5]-'0');
+    int m1 = (s[6]-'0')*10 + (s[7]-'0');
+
+    // Изчисляваме продължителността
+    int totalStart = h*60 + m;
+    int totalEnd = h1*60 + m1;
+    int duration = totalEnd - totalStart;
+    if(duration < 0) duration += 24*60; // ако минава полунощ
+
+    int hours = duration / 60;
+    int minutes = duration % 60;
+    cout << hours << " " << minutes << endl;
+
+    // Преброяване на превозните средства
+    int cars = 0; // леки коли
+    int big = 0;  // по-големи превозни средства
+
+    int i = 8; // започваме след времето
+    while(s[i] != '#') {
+        if(isupper(s[i])) {
+            if(i+1 < s.size() && islower(s[i+1])) {
+                // по-голямо превозно средство
+                int cnt = 0;
+                i += 2;
+                while(i < s.size() && isdigit(s[i])) {
+                    cnt = cnt*10 + (s[i]-'0');
+                    i++;
+                }
+                if(cnt == 0) cnt = 1;
+                big += cnt;
+            } else {
+                // лека кола
+                int cnt = 0;
+                i += 1;
+                while(i < s.size() && isdigit(s[i])) {
+                    cnt = cnt*10 + (s[i]-'0');
+                    i++;
+                }
+                if(cnt == 0) cnt = 1;
+                cars += cnt;
+            }
+        } else {
+            i++; // просто за всеки случай
+        }
+    }
+
+    cout << cars << " " << big << endl;
+
+    return 0;
+}
