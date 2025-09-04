@@ -1,0 +1,37 @@
+#include <iostream>
+#include <cmath>
+using namespace std;
+
+int main() {
+    int up, down;
+    cin >> up >> down;
+
+    int n;
+    cin >> n;
+
+    int total_time = 0;
+    int max_time = 0;
+    int cur = 1; // започва на първи етаж
+
+    for (int i = 0; i < n; i++) {
+        int call;
+        cin >> call;
+
+        int diff = abs(call - cur);
+        int t;
+
+        if (call > cur)
+            t = diff * up;
+        else
+            t = diff * down;
+
+        total_time += t;
+        if (t > max_time)
+            max_time = t;
+
+        cur = call;
+    }
+
+    cout << total_time << " " << max_time << endl;
+    return 0;
+}
