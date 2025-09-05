@@ -1,0 +1,16 @@
+#include <iostream>
+#include <algorithm>
+using namespace std;
+
+int main() {
+	long long a1, b1, c1, a2, b2, c2;
+	cin >> a1 >> b1 >> c1;
+	cin >> a2 >> b2 >> c2;
+	long long p1 = a1 + b1 + c1;
+	long long p2 = a2 + b2 + c2;
+	long long max_side1 = max({ a1, b1, c1 });
+	long long max_side2 = max({ a2, b2, c2 });
+	long long min_perimeter = p1 + p2 - 2 * min(max_side1, max_side2);
+	cout << min_perimeter << endl;
+	return 0;
+}
