@@ -1,0 +1,33 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+    long long N;
+    cin >> N;
+
+    long long box_size = 12 * 12; // 144 чифта в кутия
+    long long pack_size = 12;     // 12 чифта в връзка
+
+    long long boxes = N / box_size;
+    N = N % box_size;
+
+    long long packs = N / pack_size;
+    N = N % pack_size;
+
+    long long singles = N;
+
+    // Ако купуването на следващата връзка е по-евтино от единичните, взимаме още една връзка
+    if (singles * 10.5 > 102.5) {
+        packs += 1;
+        singles = 0;
+    }
+
+    // Ако купуването на следваща кутия е по-евтино от всички текущи връзки + единични
+    if (packs * 102.5 + singles * 10.5 > 1140) {
+        boxes += 1;
+        packs = 0;
+        singles = 0;
+    }
+
+    cout << boxes << " " << packs << " " << singles << endl;
+}
