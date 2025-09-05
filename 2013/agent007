@@ -1,0 +1,41 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+    int l, n;
+    cin >> l >> n;
+
+    int h, maxH = 0;
+    bool found = false;
+
+    int heights[101]; // temporarily store all to check ahead
+    for (int i = 1; i <= n; i++) {
+        cin >> heights[i];
+    }
+
+    for (int i = 1; i <= n; i++) {
+        if (heights[i] > maxH) { // visible
+            maxH = heights[i];
+            bool canHide = true;
+            if (i + l > n) canHide = false; // helicopter would go out
+            else {
+                for (int j = i + 1; j <= i + l; j++) {
+                    if (heights[j] >= heights[i]) {
+                        canHide = false;
+                        break;
+                    }
+                }
+            }
+
+            if (canHide) {
+                if (found) cout << " ";
+                cout << i;
+                found = true;
+            }
+        }
+    }
+
+    if (!found) cout << "NO";
+
+    return 0;
+}
