@@ -1,0 +1,19 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+	int x, n;
+	cin >> x >> n;
+	int p = 0, i = 0;
+	for (int j = 0; j < n; j++) {
+		int v1, t1, v2, t2;
+		cin >> v1 >> t1 >> v2 >> t2;
+		p += v1 * t1;
+		i += v2 * t2;
+	}
+	p = (p % x + x) % x;
+	i = (i % x + x) % x;
+	int d = abs(p - i);
+	cout << min(d, x - d) << endl;
+	return 0;
+}
