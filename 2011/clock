@@ -1,0 +1,53 @@
+#include <iostream>
+#include <iomanip>
+#include <vector>
+#include <tuple>
+#include <algorithm>
+#include <cstdio>
+using namespace std;
+
+int main() {
+    string start, end;
+    if (!(cin >> start >> end)) return 0;
+    int dh, dm, ds;
+    cin >> dh >> dm >> ds;
+    int film = dh * 3600 + dm * 60 + ds;
+    const int MOD = 12 * 3600;
+    vector<tuple<int, int, int, int, int, int>> res;
+
+    for (int t = 0; t < MOD; ++t) {
+        int h = t / 3600;
+        int m = (t % 3600) / 60;
+        int s = t % 60;
+        int dispH = (h == 0 ? 12 : h);
+        char buf[7]; sprintf(buf, "%02d%02d%02d", dispH, m, s);
+        bool ok = true;
+        for (int i = 0; i < 6; ++i) if (start[i] != '*' && start[i] != buf[i]) { ok = false; break; }
+        if (!ok) continue;
+
+        int t2 = (t + film) % MOD;
+        int h2 = t2 / 3600;
+        int m2 = (t2 % 3600) / 60;
+        int s2 = t2 % 60;
+        int dispH2 = (h2 == 0 ? 12 : h2);
+        char buf2[7]; sprintf(buf2, "%02d%02d%02d", dispH2, m2, s2);
+        bool ok2 = true;
+        for (int i = 0; i < 6; ++i) if (end[i] != '*' && end[i] != buf2[i]) { ok2 = false; break; }
+        if (!ok2) continue;
+
+        res.emplace_back(dispH, m, s, dispH2, m2, s2);
+    }
+
+    if (res.empty()) {
+        cout << "Impossible\n";
+        return 0;
+    }
+
+    sort(res.begin(), res.end());
+    for (auto& tup : res) {
+        int a, b, c, d, e, f; tie(a, b, c, d, e, f) = tup;
+        cout << setw(2) << setfill('0') << a << ":" << setw(2) << b << ":" << setw(2) << c
+            << " " << setw(2) << d << ":" << setw(2) << e << ":" << setw(2) << f << "\n";
+    }
+    return 0;
+}
