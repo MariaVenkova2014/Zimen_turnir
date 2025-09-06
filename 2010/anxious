@@ -1,0 +1,52 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+    int N;
+    cin >> N;
+
+    int totalMinutes = 0;
+    int maxConsecutiveAfternoon = 0;
+    int currentConsecutive = 0;
+
+    for (int i = 0; i < N; i++) {
+        int sh, sm, eh, em;
+        cin >> sh >> sm >> eh >> em;
+
+        // Convert start and end to 24-hour format
+        int start = sh * 60 + sm;
+        int end;
+
+        // Determine end time based on max 8 hours
+        int candidate1 = eh * 60 + em;          // PM possibility
+        int candidate2 = eh * 60 + em + 12*60;  // next PM
+
+        // We know duration <= 8 hours (480 min), pick correct end
+        if (candidate1 >= start && candidate1 - start <= 480)
+            end = candidate1;
+        else
+            end = candidate2;
+
+        totalMinutes += (end - start);
+
+        // Check if Znayko worked after 12:00 (720 min)
+        if (end > 12*60) {
+            currentConsecutive++;
+            if (currentConsecutive > maxConsecutiveAfternoon)
+                maxConsecutiveAfternoon = currentConsecutive;
+        } else {
+            currentConsecutive = 0;
+        }
+    }
+
+    int hours = totalMinutes / 60;
+    int minutes = totalMinutes % 60;
+
+    // Print with leading zeros
+    if (hours < 10) cout << "0";
+    cout << hours << ":";
+    if (minutes < 10) cout << "0";
+    cout << minutes << endl;
+
+    cout << maxConsecutiveAfternoon << endl;
+}
