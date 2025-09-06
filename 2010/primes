@@ -1,0 +1,28 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+    int A, B;
+    cin >> A >> B;
+    int count = 0;
+
+    for (int i = A + 1; i < B; i++) {
+        bool isPrime = true;
+        if (i < 2) isPrime = false;
+        for (int j = 2; j * j <= i; j++) {
+            if (i % j == 0) {
+                isPrime = false;
+                break;
+            }
+        }
+        if (isPrime) {
+            int num = i;
+            while (num > 0) {
+                count++;
+                num /= 10;
+            }
+        }
+    }
+
+    cout << count << endl;
+}
