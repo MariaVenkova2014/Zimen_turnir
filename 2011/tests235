@@ -1,0 +1,40 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+    int res;
+    cin >> res;
+
+    int best_score = 1e9;
+
+    // First pass: find minimal “closeness score”
+    for (int n5 = 0; n5 <= res / 5; n5++) {
+        for (int n3 = 0; n3 <= (res - 5*n5) / 3; n3++) {
+            int remaining = res - 5*n5 - 3*n3;
+            if (remaining < 0 || remaining % 2 != 0) continue;
+            int n2 = remaining / 2;
+
+            // measure closeness: sum of pairwise absolute differences
+            int score = abs(n2 - n3) + abs(n2 - n5) + abs(n3 - n5);
+
+            if (score < best_score) best_score = score;
+        }
+    }
+
+    // Second pass: print all solutions with minimal closeness, sorted by n5
+    for (int n5 = 0; n5 <= res / 5; n5++) {
+        for (int n3 = 0; n3 <= (res - 5*n5) / 3; n3++) {
+            int remaining = res - 5*n5 - 3*n3;
+            if (remaining < 0 || remaining % 2 != 0) continue;
+            int n2 = remaining / 2;
+
+            int score = abs(n2 - n3) + abs(n2 - n5) + abs(n3 - n5);
+
+            if (score == best_score) {
+                cout << n2 << " " << n3 << " " << n5 << endl;
+            }
+        }
+    }
+
+    return 0;
+}
