@@ -1,0 +1,74 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+	int arrivalHourA, arrivalMinuteA, leavingHourA, leavingMinuteA;
+	int arrivalHourB, arrivalMinuteB, leavingHourB, leavingMinuteB;
+	int arrivalHourC, arrivalMinuteC, leavingHourC, leavingMinuteC;
+	cin >> arrivalHourA >> arrivalMinuteA >> leavingHourA >> leavingMinuteA;
+	cin >> arrivalHourB >> arrivalMinuteB >> leavingHourB >> leavingMinuteB;
+	cin >> arrivalHourC >> arrivalMinuteC >> leavingHourC >> leavingMinuteC;
+
+	//First we convert in minutes
+	int totalMinutesA = (leavingHourA * 60 + leavingMinuteA) - (arrivalHourA * 60 + arrivalMinuteA);
+	int totalMinutesB = (leavingHourB * 60 + leavingMinuteB) - (arrivalHourB * 60 + arrivalMinuteB);
+	int totalMinutesC = (leavingHourC * 60 + leavingMinuteC) - (arrivalHourC * 60 + arrivalMinuteC);
+
+	//Then we find if some time is equeal
+	if (totalMinutesA == totalMinutesB) {
+		if (totalMinutesA > totalMinutesC) {
+			cout << "XC" << endl;
+			return 0;
+		}
+	} else if (totalMinutesA == totalMinutesC) {
+		if (totalMinutesA > totalMinutesB) {
+			cout << "XB" << endl;
+			return 0;
+		}
+	} else if (totalMinutesB == totalMinutesC) {
+		if (totalMinutesB > totalMinutesA) {
+			cout << "AB" << endl;
+			return 0;
+		}
+	} else if (totalMinutesA == totalMinutesB && totalMinutesA == totalMinutesC) {
+		cout << "XX" << endl;
+		return 0;
+	}
+
+	int greatestMins = totalMinutesA;
+	if (totalMinutesB > greatestMins) greatestMins = totalMinutesB;
+	if (totalMinutesC > greatestMins) greatestMins = totalMinutesC;
+
+	int minMins = totalMinutesA;
+	if (totalMinutesB < minMins) minMins = totalMinutesB;
+	if (totalMinutesC < minMins) minMins = totalMinutesC;
+	
+	int midMins = totalMinutesA;
+	if (totalMinutesA != greatestMins && totalMinutesA != minMins) midMins = totalMinutesA;
+	if (totalMinutesB != greatestMins && totalMinutesB != minMins) midMins = totalMinutesB;
+	if (totalMinutesC != greatestMins && totalMinutesC != minMins) midMins = totalMinutesC;
+
+	if (greatestMins == totalMinutesA) {
+		cout << "A";
+	} else if (greatestMins == totalMinutesB) {
+		cout << "B";
+	} else {
+		cout << "C";
+	}
+
+	if (midMins == totalMinutesA) {
+		cout << "A";
+	} else if (midMins == totalMinutesB) {
+		cout << "B";
+	} else {
+		cout << "C";
+	}
+
+	if (minMins == totalMinutesA) {
+		cout << "A" << endl;
+	} else if (minMins == totalMinutesB) {
+		cout << "B" << endl;
+	} else {
+		cout << "C" << endl;
+	}
+}
