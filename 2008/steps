@@ -1,0 +1,31 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+    int N, H, L;
+    char c;
+    cin >> N >> H >> L;
+    cin >> c;
+
+    int width = 0; // ширина до текущото стъпало
+
+    for (int step = 0; step < N; step++) {
+        // вертикалната част на стъпалото (отдолу до хоризонталната линия)
+        for (int h = 0; h < H - 1; h++) {
+            for (int i = 0; i < width; i++) cout << " ";
+            cout << c;
+            for (int i = 1; i < L; i++) cout << " ";
+            cout << c << endl;
+        }
+        // хоризонталната линия на стъпалото
+        for (int i = 0; i < width; i++) cout << " ";
+        for (int i = 0; i < L; i++) cout << c;
+        cout << endl;
+
+        width += L; // преместим за следващото стъпало
+    }
+
+    // долна хоризонтална линия
+    for (int i = 0; i < width; i++) cout << c;
+    cout << endl;
+}
