@@ -1,0 +1,32 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+    int d, m, y;
+    cin >> d >> m >> y;
+
+    int daysInMonth[12] = {31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31}; // 2008 е високосна
+
+    if (m < 1 || m > 12) { // невалиден месец
+        cout << "No" << endl;
+        cout << 0 << endl;
+        return 0;
+    }
+
+    if (d >= 1 && d <= daysInMonth[m-1]) { // валидна дата
+        cout << "Yes" << endl;
+        d++; // следващ ден
+        if (d > daysInMonth[m-1]) {
+            d = 1;
+            m++;
+            if (m > 12) {
+                m = 1;
+                y++;
+            }
+        }
+        cout << d << "." << m << "." << y << endl;
+    } else { // невалидна дата
+        cout << "No" << endl;
+        cout << daysInMonth[m-1] << endl;
+    }
+}
