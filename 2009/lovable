@@ -1,0 +1,38 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+    int n;
+    cin >> n;
+
+    long long a, prev;
+    cin >> prev;
+
+    int curLen = 1, bestLen = 1;
+    long long bestNum = prev;
+
+    for (int i = 1; i < n; i++) {
+        cin >> a;
+        if (a == prev) {
+            curLen++;
+        } else {
+            if (curLen > bestLen) {
+                bestLen = curLen;
+                bestNum = prev;
+            }
+            curLen = 1;
+        }
+        prev = a;
+    }
+
+    if (curLen > bestLen) {
+        bestLen = curLen;
+        bestNum = prev;
+    }
+
+    if (bestLen == 1) {
+        cout << "no" << endl;
+    } else {
+        cout << bestNum << endl;
+    }
+}
